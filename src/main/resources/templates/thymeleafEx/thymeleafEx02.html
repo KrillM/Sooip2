@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>Printed Item Data Example 1</h1>
+<div>
+  Item Name : <span th:text="${itemDto.itemName}"></span>
+</div>
+<div>
+  Type : <span th:text="${itemDto.itemType}"></span>
+</div>
+<div>
+  Detail : <span th:text="${itemDto.itemDetail}"></span>
+</div>
+<div>
+  Register : <span th:text="${itemDto.registerTime}"></span>
+</div>
+<div>
+  Price : $<span th:text="${itemDto.price}"></span>
+</div>
+<div>
+  Statue : <span th:text="${itemDto.sellStatCd}"></span>
+</div>
+
+</body>
+</html>

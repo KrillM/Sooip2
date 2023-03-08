@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<div layout:fragment="content">
+
+    <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+        <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + ' 검색결과'"></p>
+        <br/>
+
+        <div class="row">
+            <th:block th:each="item, status: ${items.getContent()}">
+                <div class="col-md-4-margin">
+                    <div class="card" style="width:380px">
+                        <a th:href="'/item/' + ${item.id}" class="text-dark">
+                            <img th:src="${item.imageUrl}" class="card-img-top" th:alt="${item.itemName}"
+                                 style="width:370px;height:360px">
+                            <div class="card-body">
+                                <h4 class="card-title">[[${item.itemName}]]</h4>
+                                <h3 class="card-title text-danger">[[${item.price}]]원</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <br/>
+
+        <div th:with="start=${(items.number/maxPage)*maxPage +1},
+        end=(${(items.totalPages == 0) ? 1 : (start + (maxPage-1) < items.totalPages ?
+        start + (maxPage - 1) : items.totalPages)})">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${items.number eq 0}?'disabled'">
+                    <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}"
+                       aria-label='Previous' class="page-link">
+                        <span aria-hidden="true"> < </span>
+                    </a>
+                </li>
+                <li class="page-item" th:each="page: ${#numbers.sequence(start,end)}"
+                    th:classappend="${items.number eq page-1}?'active':''">
+                    <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' +${page -1}}"
+                       th:inline="text" class="page-link">[[${page}]]</a>
+                </li>
+                <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled'">
+                    <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number + 1}}"
+                       aria-label="Next" class="page-link">
+                        <span aria-hidden="true"> > </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div th:unless="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+        <div class="card-columns">
+            <div class="card" style="width:300px">
+                <a href="/item/cookie">
+                    <img class="card-img-top" src="/image/mainpage/cookie.jpg" alt="과자 이미지">
+                    <div class="card-img-overlay">
+                        <h4 class="card-title">COOKIE</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="card" style="width:300px">
+                <a href="/item/candy">
+                    <img class="card-img-top" src="/image/mainpage/candy.png" alt="초콜릿 이미지">
+                    <div class="card-img-overlay">
+                        <h4 class="card-title">CANDY</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="card" style="width:300px">
+                <a href="/item/ramen">
+                    <img class="card-img-top" src="/image/mainpage/ramen.jpg" alt="라면 이미지">
+                    <div class="card-img-overlay">
+                        <h4 class="card-title">RAMEN</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="card" style="width:300px">
+                <a href="/item/retort">
+                    <img class="card-img-top" src="/image/mainpage/retort.jpg" alt="레토르트 이미지">
+                    <div class="card-img-overlay">
+                        <h4 class="card-title">RETORT</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="card" style="width:300px">
+                <a href="/item/beverage">
+                    <img class="card-img-top" src="/image/mainpage/beverage.png" alt="음료 이미지">
+                    <div class="card-img-overlay">
+                        <h4 class="card-title">BEVERAGE</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="card" style="width:300px">
+                <a href="/item/others">
+                    <img class="card-img-top" src="/image/mainpage/others.jpg" alt="기타상품 이미지">
+                    <div class="card-img-overlay">
+                        <h4 class="card-title">OTHERS</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+</html>

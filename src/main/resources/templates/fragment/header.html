@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:fragment="header">
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/" style="font-family:'CookieRunOTF-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/CookieRunOTF-Bold00.woff') format('woff');
+    font-weight: bold;">수입과자 판매점</a>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            카테고리
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/item/cookie">과자</a>
+            <a class="dropdown-item" href="/item/ramen">라면</a>
+            <a class="dropdown-item" href="/item/candy">사탕&초콜릿</a>
+            <a class="dropdown-item" href="/item/beverage">음료</a>
+            <a class="dropdown-item" href="/item/retort">레토르트</a>
+            <a class="dropdown-item" href="/item/others">기타</a>
+          </div>
+        </li>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
+          <input name="searchQuery" class="form-control me-2" type="search" placeholder="Search"
+                 aria-label="Search">
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit" style="margin-left:10px">🔍</button>
+        </form>
+      </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+          <a class="nav-link" href="/admin/item/registration">상품 등록</a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+          <a class="nav-link" href="/admin/items">상품 관리</a>
+        </li>
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <a class="nav-link" href="/basket">장바구니</a>
+        </li>
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <a class="nav-link" href="/order">구매이력</a>
+        </li>
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <a class="nav-link" href="/member/logout">로그아웃</a>
+        </li>
+        <li class="nav-item" sec:authorize="isAnonymous()">
+          <a class="nav-link" href="/member/login">로그인</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+</html>
